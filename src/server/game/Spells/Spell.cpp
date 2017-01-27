@@ -1408,7 +1408,7 @@ void Spell::SelectImplicitCasterDestTargets(SpellEffIndex effIndex, SpellImplici
 				}
 				case 7592: // Dalaran : The Violet Hold
 				{
-					if(m_caster->IsWithinDist2d(-931.03f, 4324.63f, 20.0f) || m_caster->IsWithinDist2d(-890.96f, 4321.35f, 20.0f) || m_caster->IsWithinDist2d(-981.21f, 4389.05f, 20.0f) || m_caster->IsWithinDist2d(-967.59f, 4353.53f, 20.0f)) 
+					if(m_caster->IsWithinDist2d(-931.03f, 4324.63f, 20.0f) || m_caster->IsWithinDist2d(-890.96f, 4321.35f, 20.0f) || m_caster->IsWithinDist2d(-981.21f, 4389.05f, 20.0f) || m_caster->IsWithinDist2d(-967.59f, 4353.53f, 20.0f))
 						liquidLevel = 733.50f;
 					break;
 				}
@@ -1425,7 +1425,7 @@ void Spell::SelectImplicitCasterDestTargets(SpellEffIndex effIndex, SpellImplici
 					break;
 				}
 				default:
-				break;			
+				break;
 	    }
             if (liquidLevel <= ground) // When there is no liquid Map::GetWaterOrGroundLevel returns ground level
             {
@@ -3055,8 +3055,8 @@ bool Spell::UpdateChanneledTargetList()
         if (Player* modOwner = m_caster->GetSpellModOwner())
             modOwner->ApplySpellMod(m_spellInfo->Id, SPELLMOD_RANGE, range, this);
 
-        if (!range)
-            range = maxRadius;
+        // add little tolerance level
+        range += std::min(MAX_SPELL_RANGE_TOLERANCE, range*0.1f); // 10% but no more than MAX_SPELL_RANGE_TOLERANCE
     }
 
     for (std::vector<TargetInfo>::iterator ihit = m_UniqueTargetInfo.begin(); ihit != m_UniqueTargetInfo.end(); ++ihit)
@@ -6307,6 +6307,10 @@ SpellCastResult Spell::CheckRange(bool strict) const
     float minRange, maxRange;
     std::tie(minRange, maxRange) = GetMinMaxRange(strict);
 
+    // dont check max_range to strictly after cast
+    if (m_spellInfo->RangeEntry && m_spellInfo->RangeEntry->Flags != SPELL_RANGE_MELEE && !strict)
+        maxRange += std::min(MAX_SPELL_RANGE_TOLERANCE, maxRange*0.1f); // 10% but no more than MAX_SPELL_RANGE_TOLERANCE
+
     // get square values for sqr distance checks
     minRange *= minRange;
     maxRange *= maxRange;
@@ -6907,7 +6911,7 @@ SpellCastResult Spell::CheckItems(uint32* param1 /*= nullptr*/, uint32* param2 /
                         }
                     }
 
-			if (Bonusfields.empty()) 
+			if (Bonusfields.empty())
 			HaveBonus = true;
 
 		        if (!HaveBonus)
