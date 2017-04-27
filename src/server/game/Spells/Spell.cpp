@@ -3258,6 +3258,18 @@ bool Spell::prepare(SpellCastTargets const* targets, AuraEffect const* triggered
         }
     }
 
+    // focus if not controlled creature
+    if (m_caster->GetTypeId() == TYPEID_UNIT && !m_caster->HasUnitFlag(UNIT_FLAG_PLAYER_CONTROLLED))
+    {
+        if (!(m_spellInfo->IsNextMeleeSwingSpell() || IsAutoRepeat() || (_triggeredCastFlags & TRIGGERED_IGNORE_SET_FACING)))
+        {
+            if (m_targets.GetObjectTarget() && m_caster != m_targets.GetObjectTarget())
+                m_caster->ToCreature()->FocusTarget(this, m_targets.GetObjectTarget());
+            else if (m_spellInfo->HasAttribute(SPELL_ATTR5_DONT_TURN_DURING_CAST))
+                m_caster->ToCreature()->FocusTarget(this, nullptr);
+        }
+    }
+
     // set timer base at cast time
     ReSetTimer();
 
