@@ -988,7 +988,7 @@ void DB2Manager::LoadStores(std::string const& dataPath, uint32 defaultLocale)
         std::wstring name;
         ASSERT(Utf8toWStr(namesProfanity->Name, name));
         if (namesProfanity->Language != -1)
-            _nameValidators[namesProfanity->Language].emplace_back(name, Trinity::regex::icase | Trinity::regex::optimize);
+            _nameValidators[namesProfanity->Language].emplace_back(name, Trinity::regex::perl | Trinity::regex::icase | Trinity::regex::optimize);
         else
         {
             for (uint32 i = 0; i < TOTAL_LOCALES; ++i)
@@ -996,7 +996,7 @@ void DB2Manager::LoadStores(std::string const& dataPath, uint32 defaultLocale)
                 if (i == LOCALE_none)
                     continue;
 
-                _nameValidators[i].emplace_back(name, Trinity::regex::icase | Trinity::regex::optimize);
+                _nameValidators[i].emplace_back(name, Trinity::regex::perl | Trinity::regex::icase | Trinity::regex::optimize);
             }
         }
     }
@@ -1005,7 +1005,7 @@ void DB2Manager::LoadStores(std::string const& dataPath, uint32 defaultLocale)
     {
         std::wstring name;
         ASSERT(Utf8toWStr(namesReserved->Name, name));
-        _nameValidators[TOTAL_LOCALES].emplace_back(name, Trinity::regex::icase | Trinity::regex::optimize);
+        _nameValidators[TOTAL_LOCALES].emplace_back(name, Trinity::regex::perl | Trinity::regex::icase | Trinity::regex::optimize);
     }
 
     for (NamesReservedLocaleEntry const* namesReserved : sNamesReservedLocaleStore)
@@ -1019,7 +1019,7 @@ void DB2Manager::LoadStores(std::string const& dataPath, uint32 defaultLocale)
                 continue;
 
             if (namesReserved->LocaleMask & (1 << i))
-                _nameValidators[i].emplace_back(name, Trinity::regex::icase | Trinity::regex::optimize);
+                _nameValidators[i].emplace_back(name, Trinity::regex::perl | Trinity::regex::icase | Trinity::regex::optimize);
         }
     }
 
