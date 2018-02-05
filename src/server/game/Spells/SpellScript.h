@@ -368,6 +368,7 @@ class TC_GAME_API SpellScript : public _SpellScript
         void _FinishScriptCall();
         bool IsInCheckCastHook() const;
         bool IsInTargetHook() const;
+        bool IsInModifiableHook() const;
         bool IsInHitPhase() const;
         bool IsInEffectHook() const;
     private:
