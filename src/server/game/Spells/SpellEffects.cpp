@@ -1460,7 +1460,7 @@ void Spell::DoCreateItem(uint32 /*i*/, uint32 itemtype, uint8 context /*= 0*/, s
             return;
         }
     }
-	
+
 	std::vector<int32> bonusesListIDs;
     bonusesListIDs.insert(bonusesListIDs.end(), bonusListIDs.begin(), bonusListIDs.end());
     /// HACK: Added bonus and Random bonus for Craft items "Legion"
@@ -4445,7 +4445,7 @@ void Spell::EffectSkinning(SpellEffIndex /*effIndex*/)
     int32 reqValue = targetLevel < 10 ? 0 : targetLevel < 20 ? (targetLevel - 10) * 10 : targetLevel * 5;
     if (targetLevel > 80)
         reqValue = targetLevel * 6;
- 
+
     int32 skillValue = m_caster->ToPlayer()->GetPureSkillValue(skill);
 
     // Double chances for elites
@@ -6210,10 +6210,10 @@ void Spell::EffectChangeItemBonus(SpellEffIndex effIndex)
         bonusesListIDs.insert(bonusesListIDs.end(), Bonusfields.begin(), Bonusfields.end());
         uint32 newBonusId = 0;
         bool NeedInit = false;
-		if (!bonusesListIDs.size()) 
-		{ 
-			bonusesListIDs.push_back(596); 
-			NeedInit = true; 
+		if (!bonusesListIDs.size())
+		{
+			bonusesListIDs.push_back(596);
+			NeedInit = true;
 		}
         for (uint32 j = 0; j < 10; ++j) // because not check last bonusId
         {
@@ -6238,7 +6238,7 @@ void Spell::EffectChangeItemBonus(SpellEffIndex effIndex)
                 }
             }
         }
-		
+
         if (!NeedInit)
             return;
 
