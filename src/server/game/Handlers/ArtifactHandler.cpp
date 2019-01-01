@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2008-2018 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2008-2019 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -276,7 +276,7 @@ void WorldSession::HandleArtifactAddRelicTalent(WorldPackets::Artifact::Artifact
             //GameObjectGUID: HighType: GameObject; SubType: 0; Low: 8258587; RealmdID: 1467; ServerID: 26822; Map: 1669; Entry: 273273 (������ ����� �������); Full: 0x2C16ECD0A10ADE400068C600007E041B
             //TalentIndex: 2
             //SlotIndex: 0
-        
+
             //ServerToClient: SMSG_UPDATE_OBJECT (0x280F) Length: 880 ConnIdx: 0 Time: 05/20/2018 23:38:40.203 Number: 2222
             //[0] Object Guid: HighType: Item; SubType: 0; ItemUnkPart1: 0; ItemUnkPart2: 150994944; Low: 34304044863; RealmdID: 1929; ServerID: 4194304; Map: 0 (Eastern Kingdoms); Full: 0x0C1E24000000000040000007FCAE2F3F
             //[0] [48] ITEM_DYNAMIC_FIELD_ARTIFACT_POWERS: 1739

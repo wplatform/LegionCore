@@ -1,6 +1,5 @@
 /*
- * Copyright (C) 2017-2018 AshamaneProject <https://github.com/AshamaneProject>
- * Copyright (C) 2008-2018 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2008-2019 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -534,7 +533,7 @@ public:
         {
             if (GetTargetApplication()->GetRemoveMode() == AURA_REMOVE_BY_DEFAULT || GetTargetApplication()->GetRemoveMode() == AURA_REMOVE_BY_INTERRUPT)
                 return;
-                
+
             if (!GetTarget()->HasAura(SPELL_HUNTER_MISDIRECTION_PROC))
                 GetTarget()->ResetRedirectThreat();
         }
@@ -837,7 +836,7 @@ public:
 
 					if (Creature* hati = player->GetHati())
                         player->CastSpell(hati, SPELL_HUNTER_BEAST_CLEAVE_PROC, true);
-		}  
+		}
         }
 
         void Register() override

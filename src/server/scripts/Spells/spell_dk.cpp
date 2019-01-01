@@ -1,6 +1,5 @@
 /*
- * Copyright (C) 2017-2018 AshamaneProject <https://github.com/AshamaneProject>
- * Copyright (C) 2008-2018 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2008-2019 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -186,7 +185,7 @@ enum GhoulSpells
     SPELL_DK_GHOUL_LEAP = 91809,
 };
 
-enum PetGuardianEntry 
+enum PetGuardianEntry
 {
     PET_DK_ENTRY_NECROFAGO = 26125
 };
@@ -3024,7 +3023,7 @@ public:
             // el runic power baja lentamente cuando sale de combate la diferencia es de 1 o 2. Por eso el IF de abajo
             if (pwrdec > 5)
             {
-                pwrdec = pwrdec / 10; // Esto es porque cunado el poder consume 
+                pwrdec = pwrdec / 10; // Esto es porque cunado el poder consume
                 if (roll_chance_f(pwrdec))
                     p_Player->CastSpell(p_Player, RunicCorruptionAura, true);
             }

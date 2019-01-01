@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2018 AshamaneProject <https://github.com/AshamaneProject>
+ * Copyright (C) 2008-2019 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -1095,7 +1095,7 @@ struct npc_dm_vanessa_vancleef : public ScriptedAI
     {
         std::list<Creature*> creatures;
         GetCreatureListWithEntryInGrid(creatures, me, NPC_VISION_OF_THE_PAST, 240);
-    
+
         for (auto vision : creatures)
             vision->AI()->DoAction(ACTION_VANCLEEF_DEAD);
     }

@@ -1,6 +1,5 @@
 /*
- * Copyright (C) 2017-2018 AshamaneProject <https://github.com/AshamaneProject>
- * Copyright (C) 2008-2018 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2008-2019 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -183,7 +182,7 @@ enum MageSpells
     SPELL_MAGE_FROST_WARDING_R1					 = 11189,
     SPELL_MAGE_FOCUS_MAGIC_PROC					 = 54648,
     SPELL_MAGE_INCANTERS_ABSORBTION_R1			 = 44394,
-	
+
 };
 
 enum TemporalDisplacementSpells
@@ -507,7 +506,7 @@ class spell_mage_fire_blast : public SpellScript
                 caster->CastSpell(caster, SPELL_MAGE_HEATING_UP, true);
                 procCheck = true;
             }
-                
+
 
             if (caster->HasAura(SPELL_MAGE_HEATING_UP) && !caster->HasAura(SPELL_MAGE_HOT_STREAK) && !procCheck)
             {
@@ -851,7 +850,7 @@ class spell_mage_pyroblast : public SpellScript
                     caster->CastSpell(caster, SPELL_MAGE_HOT_STREAK, true);
                 }
             }
-        }      
+        }
     }
 
     void Register() override
@@ -888,7 +887,7 @@ class spell_mage_flamestrike : public SpellScript
                     if (caster->HasAura(SPELL_MAGE_HEATING_UP))
                         caster->RemoveAurasDueToSpell(SPELL_MAGE_HEATING_UP);
                     caster->CastSpell(caster, SPELL_MAGE_HOT_STREAK, true);
-                } 
+                }
             }
         }
     }
@@ -1126,7 +1125,7 @@ class spell_mage_ice_barrier : public AuraScript
     }
 };
 
-// Chilled - 205708 
+// Chilled - 205708
 class spell_mage_chilled : public AuraScript
 {
     PrepareAuraScript(spell_mage_chilled);
@@ -1524,7 +1523,7 @@ class spell_mage_frostbolt : public SpellScript
     }
 };
 
-// Frost Bomb Damage - 113092 
+// Frost Bomb Damage - 113092
 class spell_mage_frost_bomb_damage : public SpellScript
 {
     PrepareSpellScript(spell_mage_frost_bomb_damage);
@@ -2914,7 +2913,7 @@ public:
             OnEffectProc += AuraEffectProcFn(spell_mage_hot_streak_AuraScript::OnProc, EFFECT_0, SPELL_AURA_DUMMY);
         }
     };
-	
+
 	AuraScript* GetAuraScript() const
     {
         return new spell_mage_hot_streak_AuraScript();
@@ -3340,7 +3339,7 @@ class aura_mage_arcane_touch_of_the_magi : public AuraScript
     }
 
     void HandleRemove(AuraEffect const* /*aurEffect*/, AuraEffectHandleModes /*mode*/)
-    {     
+    {
         Player* player = GetCaster()->ToPlayer();
         Unit* target = GetTarget();
 
@@ -3350,7 +3349,7 @@ class aura_mage_arcane_touch_of_the_magi : public AuraScript
         uint32 damage = 0;
         if (GetCaster()->Variables.Exist(MAGE_ARCANE_TOUCH_OF_THE_MAGI))
             damage = GetCaster()->Variables.GetValue<uint32>(MAGE_ARCANE_TOUCH_OF_THE_MAGI);
-           
+
         int32 bp = CalculatePct(damage, int32(sSpellMgr->GetSpellInfo(SPELL_MAGE_ARCANE_TOUCH_OF_THE_MAGI)->GetEffect(EFFECT_0)->BasePoints));
         player->CastCustomSpell(SPELL_MAGE_ARCANE_TOUCH_OF_THE_MAGI_DAMAGE, SPELLVALUE_BASE_POINT0, bp, target, true);
         GetCaster()->Variables.Remove(MAGE_ARCANE_TOUCH_OF_THE_MAGI);
@@ -3468,7 +3467,7 @@ void AddSC_mage_spell_scripts()
     new spell_mage_arcane_touch_of_the_magi();
     RegisterAuraScript(aura_mage_arcane_touch_of_the_magi);
     new script_mage_arcane_210725();
-    
+
     // Spell Pet scripts
     RegisterAuraScript(spell_mage_pet_freeze);
 
@@ -3483,5 +3482,5 @@ void AddSC_mage_spell_scripts()
     RegisterAreaTriggerAI(at_mage_cinderstorm);
 
     // NPC Scripts
-    new npc_mirror_image(); 
+    new npc_mirror_image();
 }

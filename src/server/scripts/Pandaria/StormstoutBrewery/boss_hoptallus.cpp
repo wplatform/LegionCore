@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018+ MagicStormProject <https://github.com/MagicStormTeam>
+ * Copyright (C) 2008-2019 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the

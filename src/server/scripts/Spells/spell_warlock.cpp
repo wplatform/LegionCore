@@ -1,6 +1,5 @@
 /*
- * Copyright (C) 2017-2018 AshamaneProject <https://github.com/AshamaneProject>
- * Copyright (C) 2008-2018 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2008-2019 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -499,7 +498,7 @@ class spell_warl_conflagrate : public SpellScript
                 }
             }
         }
-		
+
 		caster->ModifyPower(POWER_SOUL_SHARDS, 5);
     }
 

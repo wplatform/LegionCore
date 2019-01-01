@@ -1,6 +1,5 @@
 /*
- * Copyright (C) 2017-2018 AshamaneProject <https://github.com/AshamaneProject>
- * Copyright (C) 2008-2017 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2019 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -3417,7 +3416,7 @@ void AddSC_demon_hunter_spell_scripts()
 
     /// Custom NPC scripts
     new npc_dh_spell_trainer();
-	
+
 	new spell_dh_throw_glaive();
     RegisterAuraScript(spell_dh_infernal_strike_timer);
     RegisterAuraScript(spell_dh_momentum);

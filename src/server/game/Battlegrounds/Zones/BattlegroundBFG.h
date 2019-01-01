@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2019 MagicStorm
+ * Copyright (C) 2008-2019 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -239,7 +239,7 @@ struct BG_BFG_BannerTimer
 struct BattlegroundBFGScore final : public BattlegroundScore
 {
     friend class BattlegroundBFG;
-    
+
     protected:
         BattlegroundBFGScore(ObjectGuid playerGuid, uint32 team) : BattlegroundScore(playerGuid, team), BasesAssaulted(0), BasesDefended(0) { }
 
@@ -279,7 +279,7 @@ class BattlegroundBFG : public Battleground
     public:
         BattlegroundBFG();
         ~BattlegroundBFG();
-        
+
         void AddPlayer(Player* player) override;
         void StartingEventCloseDoors() override;
         void StartingEventOpenDoors() override;

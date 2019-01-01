@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2018 AshamaneProject <https://github.com/AshamaneProject>
+ * Copyright (C) 2008-2019 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -2703,7 +2703,7 @@ class go_firelands_circle_of_thorns_portal : public GameObjectScript
             return true;
         }
 };
-//volcanus est un pnj de l'encounter de la zone speciale debloquée par la quete legendaire
+//volcanus est un pnj de l'encounter de la zone speciale debloquï¿½e par la quete legendaire
 class npc_firelands_volcanus : public CreatureScript
 {
     public:

@@ -1,6 +1,5 @@
 /*
- * Copyright (C) 2017-2018 AshamaneProject <https://github.com/AshamaneProject>
- * Copyright (C) 2008-2018 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2008-2019 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -321,7 +320,7 @@ class spell_pal_beacon_of_light_proc : public AuraScript
             ownerOfBeacon->CastCustomSpell(SPELL_PALADIN_BEACON_OF_LIGHT_HEAL, SPELLVALUE_BASE_POINT0, bp, targetOfBeacon, true);
             auraCheck = true;
         }
-            
+
         if ((GetSpellInfo()->Id == SPELL_PALADIN_BEACON_OF_FAITH_PROC_AURA && targetOfBeacon->HasAura(SPELL_PALADIN_BEACON_OF_FAITH)))
         {
             bp /= 2;
@@ -654,7 +653,7 @@ class spell_pal_grand_crusader : public SpellScript
 
             if (caster->HasAura(SPELL_PALADIN_CRUSADERS_JUDGMENT))
                 caster->GetSpellHistory()->RestoreCharge(sSpellMgr->AssertSpellInfo(SPELL_PALADIN_JUDGMENT)->ChargeCategoryId);
-        }    
+        }
     }
 
     void Register() override
@@ -807,7 +806,7 @@ class spell_pal_shield_of_vengeance : public AuraScript
 
         std::list<Unit*> targets;
         caster->GetAttackableUnitListInRange(targets, 8.0f);
-        
+
 		if (uint32 targetSize = targets.size())
            absorb /= targetSize;
 
@@ -1328,7 +1327,7 @@ class spell_pal_divine_purpose_proc : public SpellScript
                                 player->CastSpell(player, SPELL_PALADIN_DIVINE_PURPOSE_RET_AURA);
                         }
                         break;
-                    } 
+                    }
                     case TALENT_SPEC_PALADIN_HOLY:
                     {
                         if (roll_chance_i(15))
@@ -1350,7 +1349,7 @@ class spell_pal_divine_purpose_proc : public SpellScript
                             }
                         }
                         break;
-                    }  
+                    }
                 }
             }
         }
@@ -2309,7 +2308,7 @@ void AddSC_paladin_spell_scripts()
     new spell_pal_light_of_the_martyr();
     new spell_pal_greater_blessing_of_kings();
     new spell_pal_zeal();
-    
+
     //7.3.2.25549
     RegisterSpellScript(spell_pal_holy_shock);
     RegisterSpellScript(spell_pal_divine_hammer);
@@ -2334,7 +2333,7 @@ void AddSC_paladin_spell_scripts()
     RegisterSpellScript(spell_pal_beacon_of_faith);
     RegisterSpellScript(spell_pal_beacon_of_light);
     RegisterSpellScript(spell_pal_beacon_of_virtue);
-    
+
     RegisterAuraScript(spell_pal_beacon_of_light_aura);
     RegisterAuraScript(spell_pal_beacon_of_light_proc);
     RegisterAuraScript(spell_pal_judgment_of_light);

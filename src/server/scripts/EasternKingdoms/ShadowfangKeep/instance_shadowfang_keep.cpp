@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2017-2018 AshamaneProject <https://github.com/AshamaneProject>
+ * Copyright (C) 2008-2019 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2006-2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -78,7 +79,7 @@ public:
                 TeamInInstance = player->GetTeam();
         }
 
-        uint32 GetData(uint32 identifier) const override 
+        uint32 GetData(uint32 identifier) const override
         {
             if (identifier == TEAM_IN_INSTANCE)
                 return TeamInInstance;

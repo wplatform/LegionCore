@@ -1,6 +1,5 @@
 /*
- * Copyright (C) 2017-2018 AshamaneProject <https://github.com/AshamaneProject>
- * Copyright (C) 2008-2018 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2008-2019 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -192,7 +191,7 @@ enum WarriorSpells
     SPELL_WARRIOR_COMMANDING_SHOUT                  = 97463,
 	SPELL_WARRIOR_REVENGE                           = 6572,
     SPELL_WARR_ART_VOID_CLEAVE_TALENT               = 209573,
-    SPELL_WARR_ART_VOID_CLEAVE_SPELL                = 209700,	
+    SPELL_WARR_ART_VOID_CLEAVE_SPELL                = 209700,
     WARRIOR_SPELL_SHIELD_OF_WALL_NOSHIELD           = 146128,
     WARRIOR_SPELL_SHIELD_OF_WALL_HORDE              = 146127,
     WARRIOR_SPELL_SHIELD_OF_WALL_ALLIANCE           = 147925,
@@ -2093,7 +2092,7 @@ class aura_warr_ignore_pain : public AuraScript
     void CalcAmount(AuraEffect const* /*aurEff*/, int32& amount, bool& /*canBeRecalculated*/)
     {
         if (Unit* caster = GetCaster())
-        {           
+        {
             //amount = (float)(22.3f * caster->GetTotalAttackPowerValue(BASE_ATTACK)) * (float(m_ExtraSpellCost+200) / 600.0f);
 
             //((0 + attack power * 3.5) * (1 + versality))

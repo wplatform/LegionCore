@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2008-2018 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2008-2019 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -71,11 +71,11 @@ void Scenario::CompleteStep(ScenarioStepEntry const* step)
         //TC_LOG_ERROR("scenario", "Scenario::CompleteStep: Scenario (id: %u, step: %u, stat: %u) ================.", _step.second->ScenarioID, _step.second->ID, GetStepState(_step.second));
         if (GetStepState(_step.second) == SCENARIO_STEP_DONE)
             continue;
-        
+
         if (!newStep || _step.second->OrderIndex < newStep->OrderIndex)
             newStep = _step.second;
     }
-   
+
     SetStep(newStep);
     if (IsComplete())
         CompleteScenario();

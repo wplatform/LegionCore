@@ -1,6 +1,5 @@
 /*
- * Copyright (C) 2017-2018 AshamaneProject <https://github.com/AshamaneProject>
- * Copyright (C) 2008-2018 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2008-2019 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -1428,7 +1427,7 @@ public:
                 return;
 
             PlayerStorage* storage = caster->ToPlayer()->GetStorage();
-            
+
             // Prevent handling next cast
             storage->SetEntry(STORAGE_MONK_COMBO_STRIKES, (int32)GetSpellInfo()->Id + 1);
         }
@@ -1506,7 +1505,7 @@ public:
 
             int32 damage = GetHitDamage();
             spell_monk_mastery_combo_strikes::TryToHandleDamage(player, spellHandleId, damage, true);
-            
+
             SetHitDamage(damage);
         }
 

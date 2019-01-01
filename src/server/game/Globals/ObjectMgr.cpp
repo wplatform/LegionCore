@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2018 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2008-2019 TrinityCore <https://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -21,8 +21,8 @@
 #include "AreaTriggerDataStore.h"
 #include "Chat.h"
 #include "Containers.h"
- #include "Creature.h"
- #include "CreatureOutfit.h"
+#include "Creature.h"
+#include "CreatureOutfit.h"
 #include "DatabaseEnv.h"
 #include "DB2Stores.h"
 #include "DisableMgr.h"
@@ -625,7 +625,7 @@ void ObjectMgr::LoadCreatureTemplateAddons()
                 TC_LOG_ERROR("sql.sql", "Creature (Entry: %u) has wrong spell %u defined in `auras` field in `creature_template_addon`.", entry, spellId);
                 continue;
             }
-            /* //Serayn: This situation seems harmless and try to remove it for cleaner output. (charset GB2312: Õâ¸öÎÊÌâËÆºõÊÇÎÞº¦µÄ£¬ËùÒÔ¹ÃÇÒÈ¥µôÒÔÇå½àÊä³ö)
+            /* //Serayn: This situation seems harmless and try to remove it for cleaner output. (charset GB2312: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æºï¿½ï¿½ï¿½ï¿½Þºï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½Ô¹ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
             if (AdditionalSpellInfo->HasAura(DIFFICULTY_NONE, SPELL_AURA_CONTROL_VEHICLE))
                 TC_LOG_ERROR("sql.sql", "Creature (Entry: %u) has SPELL_AURA_CONTROL_VEHICLE aura %u defined in `auras` field in `creature_template_addon`.", entry, spellId);
             */
@@ -2309,7 +2309,7 @@ void ObjectMgr::LoadCreatures()
             uint32 zoneId = 0;
             PhasingHandler::InitDbVisibleMapId(phaseShift, data.terrainSwapMap);
             sMapMgr->GetZoneAndAreaId(phaseShift, zoneId, data.areaId, data.mapid, data.posX, data.posY, data.posZ);
-            
+
             if (data.areaId)
             {
                 PreparedStatement* stmt = WorldDatabase.GetPreparedStatement(WORLD_UPD_CREATURE_ZONE_AREA_DATA);
