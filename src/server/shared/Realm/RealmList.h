@@ -71,6 +71,7 @@ namespace Trinity
     namespace Asio
     {
         class IoContext;
+        class DeadlineTimer;
     }
 }
 
@@ -108,7 +109,7 @@ private:
     RealmMap _realms;
     std::unordered_set<std::string> _subRegions;
     uint32 _updateInterval;
-    std::unique_ptr<boost::asio::deadline_timer> _updateTimer;
+    std::unique_ptr<Trinity::Asio::DeadlineTimer> _updateTimer;
     std::unique_ptr<boost::asio::ip::tcp_resolver> _resolver;
 };
 
