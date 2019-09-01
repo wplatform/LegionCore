@@ -874,6 +874,8 @@ void Spell::SelectSpellTargets()
             else
                 m_delayMoment = uint64((m_spellInfo->Speed * 1000.0f) + (m_spellInfo->LaunchDelay * 1000.0f));
         }
+
+        return uint64(std::floor(launchDelay * 1000.0f));
     }
 }
 
@@ -3664,6 +3666,33 @@ uint64 Spell::handle_delayed(uint64 t_offset)
         return 0;
     }
 
+    bool single_missile = m_targets.HasDst();
+    uint64 next_time = 0;
+
+    if (!m_launchHandled)
+    {
+        uint64 launchMoment = uint64(std::floor(m_spellInfo->LaunchDelay * 1000.0f));
+        if (launchMoment > t_offset)
+            return launchMoment;
+
+        HandleLaunchPhase();
+        m_launchHandled = true;
+        if (m_delayMoment > t_offset)
+        {
+            if (single_missile)
+                return m_delayMoment;
+
+            next_time = m_delayMoment;
+            if ((m_UniqueTargetInfo.size() > 2 || (m_UniqueTargetInfo.size() == 1 && m_UniqueTargetInfo.front().targetGUID == m_caster->GetGUID())) || !m_UniqueGOTargetInfo.empty())
+            {
+                t_offset = 0; // if LaunchDelay was present then the only target that has timeDelay = 0 is m_caster - and that is the only target we want to process now
+            }
+        }
+    }
+
+    if (single_missile && !t_offset)
+        return m_delayMoment;
+
     if (m_caster->GetTypeId() == TYPEID_PLAYER)
         m_caster->ToPlayer()->SetSpellModTakingSpell(this, true);
 
@@ -3671,7 +3700,7 @@ uint64 Spell::handle_delayed(uint64 t_offset)
 
     PrepareTargetProcessing();
 
-    if (!m_immediateHandled)
+    if (!m_immediateHandled && t_offset)
     {
         _handle_immediate_phase();
         m_immediateHandled = true;
