@@ -33,8 +33,6 @@ EndScriptData */
 #include "ScriptMgr.h"
 #include "World.h"
 #include "WorldSession.h"
-#include <boost/thread/shared_mutex.hpp>
-#include <boost/thread/locks.hpp>
 
 class gm_commandscript : public CommandScript
 {
@@ -54,7 +52,7 @@ public:
         };
         static std::vector<ChatCommand> commandTable =
         {
-            { "gm", rbac::RBAC_PERM_COMMAND_GM, false, NULL, "", gmCommandTable },
+            { "gm", rbac::RBAC_PERM_COMMAND_GM, false, nullptr, "", gmCommandTable },
         };
         return commandTable;
     }
@@ -100,7 +98,7 @@ public:
         if (!*args)
             return false;
 
-        Player* target =  handler->getSelectedPlayer();
+        Player* target = handler->getSelectedPlayer();
         if (!target)
             target = handler->GetSession()->GetPlayer();
 
@@ -129,7 +127,7 @@ public:
         bool first = true;
         bool footer = false;
 
-        boost::shared_lock<boost::shared_mutex> lock(*HashMapHolder<Player>::GetLock());
+        std::shared_lock<std::shared_mutex> lock(*HashMapHolder<Player>::GetLock());
         HashMapHolder<Player>::MapType const& m = ObjectAccessor::GetPlayers();
         for (HashMapHolder<Player>::MapType::const_iterator itr = m.begin(); itr != m.end(); ++itr)
         {

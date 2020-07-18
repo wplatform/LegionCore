@@ -53,8 +53,7 @@
 #include "WhoPackets.h"
 #include "World.h"
 #include "WorldPacket.h"
-#include <boost/thread/shared_mutex.hpp>
-#include <boost/thread/locks.hpp>
+#include <cstdarg>
 #include <zlib.h>
 
 void WorldSession::HandleRepopRequest(WorldPackets::Misc::RepopRequest& /*packet*/)

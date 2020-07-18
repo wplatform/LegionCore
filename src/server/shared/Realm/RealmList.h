@@ -21,6 +21,7 @@
 #include "Define.h"
 #include "Realm.h"
 #include <map>
+#include <shared_mutex>
 #include <vector>
 #include <unordered_set>
 
@@ -35,8 +36,6 @@ struct RealmBuildInfo
 
 namespace boost
 {
-    class shared_mutex;
-
     namespace system
     {
         class error_code;
@@ -96,7 +95,7 @@ private:
         boost::asio::ip::address&& address, boost::asio::ip::address&& localAddr, boost::asio::ip::address&& localSubmask,
         uint16 port, uint8 icon, RealmFlags flag, uint8 timezone, AccountTypes allowedSecurityLevel, float population);
 
-    std::unique_ptr<boost::shared_mutex> _realmsMutex;
+    mutable std::shared_mutex _realmsMutex;
     RealmMap _realms;
     std::unordered_set<std::string> _subRegions;
     uint32 _updateInterval;
