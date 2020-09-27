@@ -35,12 +35,10 @@
 
 RealmList::RealmList() : _updateInterval(0)
 {
-    _realmsMutex = Trinity::make_unique<boost::shared_mutex>();
+    _realmsMutex = std::make_unique<boost::shared_mutex>();
 }
 
-RealmList::~RealmList()
-{
-}
+RealmList::~RealmList() = default;
 
 RealmList* RealmList::Instance()
 {
@@ -52,9 +50,10 @@ RealmList* RealmList::Instance()
 void RealmList::Initialize(Trinity::Asio::IoContext& ioContext, uint32 updateInterval)
 {
     _updateInterval = updateInterval;
-    _updateTimer = Trinity::make_unique<Trinity::Asio::DeadlineTimer>(ioContext);
-    _resolver = Trinity::make_unique<boost::asio::ip::tcp::resolver>(ioContext);
+    _updateTimer = std::make_unique<Trinity::Asio::DeadlineTimer>(ioContext);
+    _resolver = std::make_unique<Trinity::Asio::Resolver>(ioContext);
 
+    LoadBuildInfo();
     // Get the content of the realmlist table in the database
     UpdateRealms(boost::system::error_code());
 }
@@ -79,11 +78,11 @@ void RealmList::UpdateRealm(Realm& realm, Battlenet::RealmHandle const& id, uint
     realm.AllowedSecurityLevel = allowedSecurityLevel;
     realm.PopulationLevel = population;
     if (!realm.ExternalAddress || *realm.ExternalAddress != address)
-        realm.ExternalAddress = Trinity::make_unique<boost::asio::ip::address>(std::move(address));
+        realm.ExternalAddress = std::make_unique<boost::asio::ip::address>(std::move(address));
     if (!realm.LocalAddress || *realm.LocalAddress != localAddr)
-        realm.LocalAddress = Trinity::make_unique<boost::asio::ip::address>(std::move(localAddr));
+        realm.LocalAddress = std::make_unique<boost::asio::ip::address>(std::move(localAddr));
     if (!realm.LocalSubnetMask || *realm.LocalSubnetMask != localSubmask)
-        realm.LocalSubnetMask = Trinity::make_unique<boost::asio::ip::address>(std::move(localSubmask));
+        realm.LocalSubnetMask = std::make_unique<boost::asio::ip::address>(std::move(localSubmask));
     realm.Port = port;
 }
 
@@ -118,21 +117,21 @@ void RealmList::UpdateRealms(boost::system::error_code const& error)
                 std::string localAddressString = fields[3].GetString();
                 std::string localSubmaskString = fields[4].GetString();
 
-                Optional<boost::asio::ip::tcp::endpoint> externalAddress = Trinity::Net::Resolve(*_resolver, boost::asio::ip::tcp::v4(), externalAddressString, "");
+                Optional<boost::asio::ip::tcp::endpoint> externalAddress = _resolver->Resolve(boost::asio::ip::tcp::v4(), externalAddressString, "");
                 if (!externalAddress)
                 {
                     TC_LOG_ERROR("realmlist", "Could not resolve address %s for realm \"%s\" id %u", externalAddressString.c_str(), name.c_str(), realmId);
                     continue;
                 }
 
-                Optional<boost::asio::ip::tcp::endpoint> localAddress = Trinity::Net::Resolve(*_resolver, boost::asio::ip::tcp::v4(), localAddressString, "");
+                Optional<boost::asio::ip::tcp::endpoint> localAddress = _resolver->Resolve(boost::asio::ip::tcp::v4(), localAddressString, "");
                 if (!localAddress)
                 {
                     TC_LOG_ERROR("realmlist", "Could not resolve localAddress %s for realm \"%s\" id %u", localAddressString.c_str(), name.c_str(), realmId);
                     continue;
                 }
 
-                Optional<boost::asio::ip::tcp::endpoint> localSubmask = Trinity::Net::Resolve(*_resolver, boost::asio::ip::tcp::v4(), localSubmaskString, "");
+                Optional<boost::asio::ip::tcp::endpoint> localSubmask = _resolver->Resolve(boost::asio::ip::tcp::v4(), localSubmaskString, "");
                 if (!localSubmask)
                 {
                     TC_LOG_ERROR("realmlist", "Could not resolve localSubnetMask %s for realm \"%s\" id %u", localSubmaskString.c_str(), name.c_str(), realmId);
@@ -200,7 +199,7 @@ Realm const* RealmList::GetRealm(Battlenet::RealmHandle const& id) const
     if (itr != _realms.end())
         return &itr->second;
 
-    return NULL;
+    return nullptr;
 }
 
 RealmBuildInfo const* RealmList::GetBuildInfo(uint32 build) const
