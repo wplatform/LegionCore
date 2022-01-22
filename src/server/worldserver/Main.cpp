@@ -46,7 +46,6 @@
 #include "ScriptMgr.h"
 #include "ScriptReloadMgr.h"
 #include "TCSoap.h"
-#include "RESTService.h"
 #include "World.h"
 #include "WorldSocket.h"
 #include "WorldSocketMgr.h"
@@ -76,8 +75,8 @@ namespace fs = boost::filesystem;
 #ifdef _WIN32
 #include "ServiceWin32.h"
 char serviceName[] = "worldserver";
-char serviceLongName[] = "OpenLCore world service";
-char serviceDescription[] = "OpenLCore World of Warcraft emulator world service";
+char serviceLongName[] = "LegionCore world service";
+char serviceDescription[] = "LegionCore World of Warcraft emulator world service";
 /*
  * -1 - not in service mode
  *  0 - stopped
@@ -325,17 +324,6 @@ extern int main(int argc, char** argv)
         return 1;
     }
 
-    if (sConfigMgr->GetBoolDefault("WorldREST.Enabled", false))
-    {
-        if (!sRestService.Start())
-        {
-            TC_LOG_ERROR("server.worldserver", "Failed to initialize Rest service");
-            return 1;
-        }
-    }
-
-    std::shared_ptr<void> sRestServiceHandle(nullptr, [](void*) { sRestService.Stop(); });
-
     std::shared_ptr<void> sWorldSocketMgrHandle(nullptr, [](void*)
     {
         sWorld->KickAll();                                       // save and kick all players
@@ -392,8 +380,6 @@ extern int main(int argc, char** argv)
     threadPool.reset();
 
     sLog->SetSynchronous();
-
-    sRestService.Stop();
 
     sScriptMgr->OnShutdown();
 
