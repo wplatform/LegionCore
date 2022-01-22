@@ -1,1 +1,0 @@
-ALTER TABLE `questv2clitask` RENAME `QuestV2CliTask`;
