@@ -21,19 +21,22 @@
 
 void Trinity::Banner::Show(char const* applicationName, void(*log)(char const* text), void(*logExtraInfo)())
 {
-	log(" ");
-    log("  _____                    _       ______                 ");
-    log(" / ___ \\                  | |     / _____)                ");
-    log("| |   | |____   ____ ____ | |    | /      ___   ____ ____ ");
-    log("| |   | |  _ \\ / _  )  _ \\| |    | |     / _ \\ / ___) _  )");
-    log("| |___| | | | ( (/ /| | | | |____| \____| |_| | |  ( (/ / ");
-    log(" \\_____/| ||_/ \\____)_| |_|_______)______)___/|_|   \____)");
-    log("        |_|      ");
-log(" https://github.com/LegionCoreteam/LegionCore        ");
-log(" LegionCore is based on MagicStorm/AshamaneCore/TrinityCore        ");
-log(" https://github.com/LegionCoreteam/LegionCore.git        ");
-	log(" ");
+    log(Trinity::StringFormat("%s (%s)", GitRevision::GetFullVersion(), applicationName).c_str());
+    log("<Ctrl-C> to stop. \n                                                                        ");
+    log(" /$$                                              /$$$$$$                                   ");
+    log("| $$                                             /$$__  $$                                  ");
+    log("| $$       /$$$$$$  /$$$$$$ /$$ /$$$$$$ /$$$$$$$| $$  \\__/ /$$$$$$  /$$$$$$  /$$$$$$       ");
+    log("| $$      /$$__  $$/$$__  $| $$/$$__  $| $$__  $| $$      /$$__  $$/$$__  $$/$$__  $$       ");
+    log("| $$     | $$$$$$$| $$  \\ $| $| $$  \\ $| $$  \\ $| $$     | $$  \\ $| $$  \\__| $$$$$$$$  ");
+    log("| $$     | $$_____| $$  | $| $| $$  | $| $$  | $| $$    $| $$  | $| $$     | $$_____/       ");
+    log("| $$$$$$$|  $$$$$$|  $$$$$$| $|  $$$$$$| $$  | $|  $$$$$$|  $$$$$$| $$     |  $$$$$$$       ");
+    log("|________/\\_______/\\____  $|__/\\______/|__/  |__/\\______/ \\______/|__/      \\_______/ ");
+    log("                   /$$  \\ $$                                                               ");
+    log("                  |  $$$$$$/                                                                ");
+    log("                   \\______/                                                                ");
+    log("https://github.com/wplatform/LegionCore \n                                                                   ");
 
     if (logExtraInfo)
         logExtraInfo();
+
 }
