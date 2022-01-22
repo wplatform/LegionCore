@@ -29,9 +29,9 @@ void Trinity::Banner::Show(char const* applicationName, void(*log)(char const* t
     log("| |___| | | | ( (/ /| | | | |____| \____| |_| | |  ( (/ / ");
     log(" \\_____/| ||_/ \\____)_| |_|_______)______)___/|_|   \____)");
     log("        |_|      ");
-log(" https://github.com/openlcoreteam/OpenLCore        ");
-log(" OpenLCore is based on MagicStorm/AshamaneCore/TrinityCore        ");
-log(" https://github.com/openlcoreteam/OpenLCore.git        ");
+log(" https://github.com/LegionCoreteam/LegionCore        ");
+log(" LegionCore is based on MagicStorm/AshamaneCore/TrinityCore        ");
+log(" https://github.com/LegionCoreteam/LegionCore.git        ");
 	log(" ");
 
     if (logExtraInfo)
