@@ -1571,7 +1571,7 @@ class spell_general_nazgrim_aftershock : public SpellScriptLoader
 
             bool CheckForTarget(const WorldObject* target, const Position* sourcePosition, float lineSize) const
             {
-                if (!sourcePosition->HasInArc(M_PI, target))
+                if (!sourcePosition->HasInArc((float)M_PI, target))
                     return false;
 
                 float dist = sourcePosition->GetExactDist2d(target);
@@ -1781,7 +1781,7 @@ class spell_general_nazgrim_unstable_blink : public SpellScriptLoader
                     return;
 
                 Position blinkPos;
-                float angle = frand(0, 2 * M_PI);
+                float angle = frand(0, (float)(2 * M_PI));
                 blinkPos.m_positionX = centerOfRoomPos.GetPositionX() + DISTANCE_FROM_CENTER * std::cos(angle);
                 blinkPos.m_positionY = centerOfRoomPos.GetPositionY() + DISTANCE_FROM_CENTER * std::sin(angle);
                 blinkPos.m_positionZ = centerOfRoomPos.GetPositionZ() + 1.f;

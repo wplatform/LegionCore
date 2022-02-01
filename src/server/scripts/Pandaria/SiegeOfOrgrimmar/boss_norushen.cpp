@@ -2498,7 +2498,7 @@ public:
 
                 float maxDist = m_Source->GetExactDist2d(m_BlindHatred);
 
-                if (!sourcePosition.HasInArc(M_PI, targe))
+                if (!sourcePosition.HasInArc((float)M_PI, targe))
                     return true;
 
                 float dist = sourcePosition.GetExactDist2d(targe);

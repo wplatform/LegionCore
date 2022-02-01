@@ -1357,7 +1357,7 @@ class spell_immerseus_corrosive_blast : public SpellScriptLoader
 
                 targets.remove_if([&](WorldObject* obj) -> bool
                 {
-                    return !obj->IsPlayer() || !GetCaster()->isInFront(obj, M_PI / 6);
+                    return !obj->IsPlayer() || !GetCaster()->isInFront(obj, (float)(M_PI / 6));
                 });
 
                 // It should hit the tank always (maybe only debuff, need to check).

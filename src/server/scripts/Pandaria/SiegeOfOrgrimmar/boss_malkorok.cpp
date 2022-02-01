@@ -593,7 +593,7 @@ class boss_malkorok : public CreatureScript
 
                 Position firstImplodingPosition;
 
-                float firstAngle = frand(0.f, 2 * M_PI);
+                float firstAngle = frand(0.f, (float)(2 * M_PI));
                 float firstDist = frand(IMPLODING_ENERGY_MIN_DIST, IMPLODING_ENERGY_MAX_DIST);
                 firstImplodingPosition.m_positionX = centerPos.GetPositionX() + firstDist * std::cos(firstAngle);
                 firstImplodingPosition.m_positionY = centerPos.GetPositionY() + firstDist * std::sin(firstAngle);

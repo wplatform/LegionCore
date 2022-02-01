@@ -3345,7 +3345,7 @@ class spell_garrosh_hellscream_annihilation : public SpellScriptLoader
 
                 targets.remove_if([&](WorldObject* obj) -> bool
                 {
-                    return !obj->IsPlayer() || !GetCaster()->isInFront(obj, M_PI / 4.5f);
+                    return !obj->IsPlayer() || !GetCaster()->isInFront(obj, (float)(M_PI / 4.5f));
                 });
             }
 
@@ -3915,7 +3915,7 @@ class spell_garrosh_hellscream_manifest_rage: public SpellScriptLoader
             void SendMissile(Unit* caster)
             {
                 float dist = frand(10.f, 30.f);
-                float angle = frand(0.f, 2 * M_PI);
+                float angle = frand(0.f, (float)(2 * M_PI));
                 float posX = caster->GetPositionX() + dist * std::cos(angle);
                 float posY = caster->GetPositionY() + dist * std::sin(angle);
                 float posZ = caster->GetPositionZ();

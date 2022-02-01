@@ -88,7 +88,7 @@ void SceneActionKillCreditMonster::DoAction()
     {
         if (Player* player = GetPlayer())
         {
-            for (int i = 0; i < amount; i++)
+            for (uint32 i = 0; i < amount; i++)
             {
                 player->KilledMonsterCredit(creditEntry);
             }
