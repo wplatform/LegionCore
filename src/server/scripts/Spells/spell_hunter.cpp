@@ -713,7 +713,7 @@ public:
 
             if (Unit* caster = GetCaster())
             {
-                uint32 spec = caster->GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID);
+                uint32 spec = caster->ToPlayer()->GetPrimarySpecialization();
 
                 if (spec == TALENT_SPEC_HUNTER_BEASTMASTER || spec == TALENT_SPEC_HUNTER_MARKSMAN)
                 {
@@ -1544,7 +1544,7 @@ public:
         {
             if (Player* player = GetCaster()->ToPlayer())
             {
-                uint32 spec = player->GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID);
+                uint32 spec = player->GetPrimarySpecialization();
 
                 if (player->HasSpell(SPELL_HUNTER_POSTHAST))
                 {

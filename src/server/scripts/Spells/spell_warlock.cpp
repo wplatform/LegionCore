@@ -2964,7 +2964,7 @@ public:
             if (!caster->ToPlayer())
                 return;
 
-            if (caster->GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID) == TALENT_SPEC_WARLOCK_DESTRUCTION)
+            if (caster->ToPlayer()->GetPrimarySpecialization() == TALENT_SPEC_WARLOCK_DESTRUCTION)
                 caster->CastSpell(target, SPELL_WARLOCK_IMMOLATE_DOT, true);
         }
 
@@ -3096,7 +3096,7 @@ public:
             std::list<Unit*> enemies;
             caster->GetAttackableUnitListInRange(enemies, 100.0f);
             int32 spellId = 0;
-            switch (caster->GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID))
+            switch (caster->ToPlayer()->GetPrimarySpecialization())
             {
                 case TALENT_SPEC_WARLOCK_AFFLICTION:
                     spellId = SPELL_WARLOCK_AGONY;

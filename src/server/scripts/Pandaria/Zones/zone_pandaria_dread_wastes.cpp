@@ -248,7 +248,7 @@ class mob_dread_kunchong : public CreatureScript
                 if (!player)
                     return;
 
-                switch (player->GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID))
+                switch (player->GetPrimarySpecialization())
                 {
                     case TALENT_SPEC_DEATHKNIGHT_BLOOD:
                     case TALENT_SPEC_DEATHKNIGHT_FROST:

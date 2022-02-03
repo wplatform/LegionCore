@@ -3440,7 +3440,7 @@ bool Player::IsNeedCastPassiveSpellAtLearn(SpellInfo const* spellInfo) const
 
 bool Player::IsCurrentSpecMasterySpell(SpellInfo const* spellInfo) const
 {
-    if (ChrSpecializationEntry const* chrSpec = sChrSpecializationStore.LookupEntry(GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID)))
+    if (ChrSpecializationEntry const* chrSpec = sChrSpecializationStore.LookupEntry(GetPrimarySpecialization()))
         return spellInfo->Id == uint32(chrSpec->MasterySpellID[0]) || spellInfo->Id == uint32(chrSpec->MasterySpellID[1]);
 
     return false;
@@ -8139,7 +8139,7 @@ void Player::ApplyItemEquipSpell(Item* item, bool apply, bool formChange /*= fal
             && sDB2Manager.GetHeirloomByItemId(item->GetEntry()))
             continue;
 
-        if (effectData->ChrSpecializationID && effectData->ChrSpecializationID != GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID))
+        if (effectData->ChrSpecializationID && effectData->ChrSpecializationID != GetPrimarySpecialization())
             continue;
 
         ApplyEquipSpell(spellproto, item, apply, formChange);
@@ -8210,7 +8210,7 @@ void Player::UpdateItemSetAuras(bool formChange /*= false*/)
         {
             SpellInfo const* spellInfo = sSpellMgr->AssertSpellInfo(itemSetSpell->SpellID);
 
-            if (itemSetSpell->ChrSpecID && itemSetSpell->ChrSpecID != GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID))
+            if (itemSetSpell->ChrSpecID && itemSetSpell->ChrSpecID != GetPrimarySpecialization())
                 ApplyEquipSpell(spellInfo, nullptr, false, false);  // item set aura is not for current spec
             else
             {
@@ -12156,7 +12156,7 @@ InventoryResult Player::CanUseItem(ItemTemplate const* proto) const
                 return EQUIP_ERR_INTERNAL_BAG_ERROR;
 
     if (ArtifactEntry const* artifact = sArtifactStore.LookupEntry(proto->GetArtifactID()))
-        if (artifact->ChrSpecializationID != GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID))
+        if (artifact->ChrSpecializationID != GetPrimarySpecialization())
             return EQUIP_ERR_CANT_USE_ITEM;
 
     return EQUIP_ERR_OK;
@@ -18797,9 +18797,6 @@ bool Player::LoadFromDB(ObjectGuid guid, SQLQueryHolder *holder)
     if (ChrSpecializationEntry const* chrSpec = sChrSpecializationStore.LookupEntry(lootSpecId))
         if (chrSpec->ClassID == getClass())
             SetLootSpecId(lootSpecId);
-
-    if (ChrSpecializationEntry const* spec = sDB2Manager.GetChrSpecializationByIndex(getClass(), GetActiveTalentGroup()))
-        SetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID, spec->ID);
 
     UpdateDisplayPower();
     _LoadTalents(holder->GetPreparedResult(PLAYER_LOGIN_QUERY_LOAD_TALENTS));
@@ -27143,14 +27140,14 @@ TalentLearnResult Player::LearnTalent(uint32 talentId, int32* spellOnCooldown)
     if (isDead())
         return TALENT_FAILED_CANT_DO_THAT_RIGHT_NOW;
 
-    if (!GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID))
+    if (!GetPrimarySpecialization())
         return TALENT_FAILED_NO_PRIMARY_TREE_SELECTED;
 
     TalentEntry const* talentInfo = sTalentStore.LookupEntry(talentId);
     if (!talentInfo)
         return TALENT_FAILED_UNKNOWN;
 
-    if (talentInfo->SpecID && talentInfo->SpecID != GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID))
+    if (talentInfo->SpecID && talentInfo->SpecID != GetPrimarySpecialization())
         return TALENT_FAILED_UNKNOWN;
 
     // prevent learn talent for different class (cheating)
@@ -27174,7 +27171,7 @@ TalentLearnResult Player::LearnTalent(uint32 talentId, int32* spellOnCooldown)
     {
         if (!talent->SpecID)
             bestSlotMatch = talent;
-        else if (talent->SpecID == GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID))
+        else if (talent->SpecID == GetPrimarySpecialization())
         {
             bestSlotMatch = talent;
             break;
@@ -27242,8 +27239,7 @@ void Player::ResetTalentSpecialization()
     ChrSpecializationEntry const* defaultSpec = ASSERT_NOTNULL(sDB2Manager.GetDefaultChrSpecializationForClass(getClass()));
     SetPrimarySpecialization(defaultSpec->ID);
     SetActiveTalentGroup(defaultSpec->OrderIndex);
-    SetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID, defaultSpec->ID);
-
+    SetPrimarySpecialization(defaultSpec->ID);
     RemoveEquipedSpecializationItems();
     LearnSpecializationSpells();
 
@@ -27265,12 +27261,12 @@ TalentLearnResult Player::LearnPvpTalent(uint32 talentID, int32* spellOnCooldown
 
     if (talentInfo->SpecID)
     {
-        if (talentInfo->SpecID != GetInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID))
+        if (talentInfo->SpecID != GetPrimarySpecialization())
             return TALENT_FAILED_UNKNOWN;
     }
     else if (talentInfo->Role >= 0)
     {
-        if (talentInfo->Role != sChrSpecializationStore.AssertEntry(GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID))->Role)
+        if (talentInfo->Role != sChrSpecializationStore.AssertEntry(GetPrimarySpecialization())->Role)
             return TALENT_FAILED_UNKNOWN;
     }
 
@@ -28068,7 +28064,7 @@ void Player::ActivateTalentGroup(ChrSpecializationEntry const* spec)
         RemoveAurasDueToSpell(sGlyphPropertiesStore.AssertEntry(glyphId)->SpellID);
 
     SetActiveTalentGroup(spec->OrderIndex);
-    SetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID, spec->ID);
+    SetPrimarySpecialization(spec->ID);
     if (!GetPrimarySpecialization())
         SetPrimarySpecialization(spec->ID);
 
@@ -29219,7 +29215,7 @@ Pet* Player::SummonPet(uint32 entry, float x, float y, float z, float ang, PetTy
 
 bool Player::CanUseMastery() const
 {
-    if (ChrSpecializationEntry const* chrSpec = sChrSpecializationStore.LookupEntry(GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID)))
+    if (ChrSpecializationEntry const* chrSpec = sChrSpecializationStore.LookupEntry(GetPrimarySpecialization()))
         return HasSpell(chrSpec->MasterySpellID[0]) || HasSpell(chrSpec->MasterySpellID[1]);
 
     return false;
@@ -29506,7 +29502,7 @@ void Player::RemoveOverrideSpell(uint32 overridenSpellId, uint32 newSpellId)
 
 void Player::LearnSpecializationSpells()
 {
-    if (std::vector<SpecializationSpellsEntry const*> const* specSpells = sDB2Manager.GetSpecializationSpells(GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID)))
+    if (std::vector<SpecializationSpellsEntry const*> const* specSpells = sDB2Manager.GetSpecializationSpells(GetPrimarySpecialization()))
     {
         for (size_t j = 0; j < specSpells->size(); ++j)
         {

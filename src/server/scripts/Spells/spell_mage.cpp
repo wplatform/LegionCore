@@ -1600,7 +1600,7 @@ class spell_mage_unstable_magic : public SpellScript
             if (Aura* unstableMagic = player->GetAura(SPELL_MAGE_UNSTABLE_MAGIC))
             {
                 int32 chance = 0;
-                uint32 spec = player->GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID);
+                uint32 spec = player->GetPrimarySpecialization();
                 switch (spec)
                 {
                     case TALENT_SPEC_MAGE_ARCANE:

@@ -112,7 +112,7 @@ struct HealerSelector : public std::unary_function<Unit*, bool>
         if (!target->ToPlayer() || !_playerOnly)
             return false;
         
-        switch (target->ToPlayer()->GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID))
+        switch (target->ToPlayer()->GetPrimarySpecialization())
         {
             case TALENT_SPEC_DRUID_RESTORATION:
             case TALENT_SPEC_SHAMAN_RESTORATION:

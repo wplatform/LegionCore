@@ -5470,10 +5470,10 @@ SpellCastResult Spell::CheckCast(bool strict, uint32* param1 /*= nullptr*/, uint
 
                     if (std::vector<uint32> const* glyphRequiredSpecs = sDB2Manager.GetGlyphRequiredSpecs(glyphId))
                     {
-                        if (!caster->GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID))
+                        if (!caster->ToPlayer()->GetPrimarySpecialization())
                             return SPELL_FAILED_GLYPH_NO_SPEC;
 
-                        if (std::find(glyphRequiredSpecs->begin(), glyphRequiredSpecs->end(), caster->GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID)) == glyphRequiredSpecs->end())
+                        if (std::find(glyphRequiredSpecs->begin(), glyphRequiredSpecs->end(), caster->ToPlayer()->GetPrimarySpecialization()) == glyphRequiredSpecs->end())
                             return SPELL_FAILED_GLYPH_INVALID_SPEC;
                     }
 

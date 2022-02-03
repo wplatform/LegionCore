@@ -2243,9 +2243,10 @@ class spell_dh_metamorphosis_immunity : public SpellScript
 
     void PreventImmunity(SpellEffIndex effIndex)
     {
-        if (Unit* caster = GetCaster())
-            if (caster->GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID) == TALENT_SPEC_DEMON_HUNTER_VENGEANCE)
-                PreventHitEffect(effIndex);
+        Unit* caster = GetCaster();
+        if (caster && caster->IsPlayer() && caster->ToPlayer()->GetPrimarySpecialization() == TALENT_SPEC_DEMON_HUNTER_VENGEANCE) {
+            PreventHitEffect(effIndex);
+        }
     }
 
     void Register() override
@@ -2267,9 +2268,11 @@ class aura_dh_metamorphosis_immunity : public AuraScript
 
     void HandleApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
     {
-        if (Unit* caster = GetCaster())
-            if (caster->GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID) == TALENT_SPEC_DEMON_HUNTER_VENGEANCE)
-                GetAura()->SetDuration(750);
+        Unit *caster = GetCaster();
+        if (caster && caster->IsPlayer() &&
+            caster->ToPlayer()->GetPrimarySpecialization() == TALENT_SPEC_DEMON_HUNTER_VENGEANCE) {
+            GetAura()->SetDuration(750);
+        }
     }
 
     void HandleRemove(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
@@ -2278,7 +2281,7 @@ class aura_dh_metamorphosis_immunity : public AuraScript
         if (!caster)
             return;
 
-        if (caster->GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID) == TALENT_SPEC_DEMON_HUNTER_HAVOC)
+        if (caster->IsPlayer() && caster->ToPlayer()->GetPrimarySpecialization() == TALENT_SPEC_DEMON_HUNTER_HAVOC)
             caster->CastSpell(caster, SPELL_DH_METAMORPHOSIS_STUN, true);
         else
         {
@@ -2426,7 +2429,7 @@ public:
 
     bool OnGossipHello(Player* player, Creature* creature) override
     {
-        if (player->GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID) != TALENT_SPEC_DEMON_HUNTER_HAVOC)
+        if (player->GetPrimarySpecialization() != TALENT_SPEC_DEMON_HUNTER_HAVOC)
             return false;
         if (player->getLevel() < 99)
             return false;

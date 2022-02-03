@@ -2024,7 +2024,7 @@ public:
 
         void HandleOnHit(SpellEffIndex effIndex)
         {
-            uint32 _spec = GetCaster()->GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID);
+            uint32 _spec = GetCaster()->ToPlayer()->GetPrimarySpecialization();
             if (_spec != TALENT_SPEC_WARRIOR_FURY) //only fury warriors should deal damage with offhand
             {
                 PreventHitDamage();

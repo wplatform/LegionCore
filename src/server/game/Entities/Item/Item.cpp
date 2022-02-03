@@ -110,7 +110,7 @@ void AddItemsSetItem(Player* player, Item* item)
 
             eff->SetBonuses.insert(itemSetSpell);
             // spell cast only if fit form requirement, in other case will cast at form change
-            if (!itemSetSpell->ChrSpecID || itemSetSpell->ChrSpecID == player->GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID))
+            if (!itemSetSpell->ChrSpecID || itemSetSpell->ChrSpecID == player->GetPrimarySpecialization())
                 player->ApplyEquipSpell(spellInfo, NULL, true);
         }
     }

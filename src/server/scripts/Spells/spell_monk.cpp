@@ -2931,7 +2931,7 @@ public:
             if (caster->HasAura(SPELL_MONK_RISING_THUNDER))
                 caster->ToPlayer()->GetSpellHistory()->ResetCooldown(SPELL_MONK_THUNDER_FOCUS_TEA, true);
 
-            if (caster->GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID) == TALENT_SPEC_MONK_BATTLEDANCER)
+            if (caster->ToPlayer()->GetPrimarySpecialization() == TALENT_SPEC_MONK_BATTLEDANCER)
                 caster->CastSpell(target, SPELL_MONK_MORTAL_WOUNDS, true);
         }
 

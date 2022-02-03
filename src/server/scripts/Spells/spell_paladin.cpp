@@ -1262,7 +1262,7 @@ class spell_pal_judgment : public SpellScript
     {
         Unit* caster = GetCaster();
         Unit* target = GetExplTargetUnit();
-        uint32 spec = caster->GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID);
+        uint32 spec = caster->ToPlayer()->GetPrimarySpecialization();
         switch (spec)
         {
             case TALENT_SPEC_PALADIN_RETRIBUTION:
@@ -1314,7 +1314,7 @@ class spell_pal_divine_purpose_proc : public SpellScript
         {
             if (player->HasSpell(SPELL_PALADIN_DIVINE_PURPOSE_RET) || player->HasSpell(SPELL_PALADIN_DIVINE_PURPOSE_HOLY))
             {
-                uint32 spec = player->GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID);
+                uint32 spec = player->GetPrimarySpecialization();
                 uint32 activateSpell = GetSpellInfo()->Id;
 
                 switch (spec)

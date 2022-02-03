@@ -1111,7 +1111,7 @@ void Battleground::AddPlayer(Player* player)
     BattlegroundPlayer bp;
     bp.OfflineRemoveTime = 0;
     bp.Team = team;
-    bp.ActiveSpec = player->GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID);
+    bp.ActiveSpec = player->GetPrimarySpecialization();
 
     // Add to list/maps
     m_Players[player->GetGUID()] = bp;
@@ -1371,7 +1371,7 @@ void Battleground::BuildPvPLogDataPacket(WorldPackets::Battleground::PVPLogData&
         if (Player* player = ObjectAccessor::GetPlayer(GetBgMap(), playerData.PlayerGUID))
         {
             playerData.IsInWorld = true;
-            playerData.PrimaryTalentTree = player->GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID);
+            playerData.PrimaryTalentTree = player->GetPrimarySpecialization();
             playerData.PrimaryTalentTreeNameIndex = 0;
             playerData.Race = player->getRace();
             playerData.Prestige = player->GetPrestigeLevel();
