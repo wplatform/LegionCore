@@ -3259,7 +3259,7 @@ bool Spell::prepare(SpellCastTargets const* targets, AuraEffect const* triggered
     }
 
     // focus if not controlled creature
-    if (m_caster->GetTypeId() == TYPEID_UNIT && !m_caster->HasUnitFlag(UNIT_FLAG_PLAYER_CONTROLLED))
+    if (m_caster->GetTypeId() == TYPEID_UNIT && !m_caster->HasFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_PLAYER_CONTROLLED))
     {
         if (!(m_spellInfo->IsNextMeleeSwingSpell() || IsAutoRepeat() || (_triggeredCastFlags & TRIGGERED_IGNORE_SET_FACING)))
         {
