@@ -47,7 +47,7 @@ public:
     bool InvokeIfReady()
     {
         ASSERT(_callback);
-        return _callback->InvokeIfReady();
+        return _callback->InvokeIfReady() == QueryCallback::Completed;
     }
 
     soap* GetClient() { return &_client; }
@@ -372,7 +372,7 @@ int32 LoginRESTService::HandlePostLogin(std::shared_ptr<AsyncRequest> request)
                 stmt->setString(0, loginTicket);
                 stmt->setUInt32(1, time(nullptr) + _loginTicketDuration);
                 stmt->setUInt32(2, accountId);
-                callback.WithPreparedCallback([request, loginTicket](PreparedQueryResult)
+                callback.WithPreparedCallback([request, loginTicket](const PreparedQueryResult&)
                 {
                     Battlenet::JSON::Login::LoginResult loginResult;
                     loginResult.set_authentication_state(Battlenet::JSON::Login::DONE);
